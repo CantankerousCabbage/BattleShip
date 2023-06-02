@@ -11,22 +11,22 @@ namespace BattleShip
     {   
 
         [SerializeField] Game game;
-        HashSet<int> previousActions;
         public int _attempts;
+        List<int> _actions;
         
 
         void Start()
         {   
             this._attempts = 0;
-            previousActions = new HashSet<int>();
+            this._actions = new List<int>();
             // TODO: Allows training to run in the background when the Unity window loses focus.
             Application.runInBackground = true;
         }
 
         public override void OnEpisodeBegin()
         {   
+            _actions.Clear();
             this._attempts = 0;
-            this.previousActions.Clear();
             game.Reset();
         }
 
@@ -49,16 +49,25 @@ namespace BattleShip
         public override void CollectObservations(VectorSensor sensor)
         {
             // TODO: This is just a dummy observation of size 1. Replace!
-            // sensor.AddObservation();
+            for(int y = 0; y < game._dimensions; y++)
+            {
+                for(int x = 0; x < game._dimensions; x++)
+                {   
+                    Cell cell = game.board._cellList[x, y];
+                    sensor.AddObservation(cell._status);
+                }
+            }
+            
         }
 
         public override void OnActionReceived(ActionBuffers actionBuffers)
         {
             // TODO: Replace with logic to control the bird based on the input recevied.
+            TimePenalty();
             _attempts++;
+            Debug.Log("Choice");
             int choice = actionBuffers.DiscreteActions[0];
-            previousActions.Add(choice);
-
+            _actions.Add(choice);
             int x_chosen = choice % game._dimensions;
             int y_chosen = choice / game._dimensions; 
             Cell cell = game.board._cellList[x_chosen, y_chosen];
@@ -74,14 +83,13 @@ namespace BattleShip
             }     
         }
 
-        // public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
-        // {   
-        //     Debug.Log("Here");
-        //     foreach(int action in this.actions)
-        //     {     
-                 
-        //         actionMask.SetActionEnabled(0, action, false);
-        //     }           
-        // }
+        public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
+        {   
+            Debug.Log("Mask");
+            foreach(int action in this._actions)
+            {        
+                actionMask.SetActionEnabled(0, action, false);
+            }           
+        }
     }
 }

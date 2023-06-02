@@ -15,6 +15,7 @@ namespace BattleShip
         [SerializeField] string name;
         [SerializeField] public float hitReward;
         [SerializeField] public BoomAgent agent;
+        [SerializeField] bool record;
 
         public int _dimensions = 10;
         public Board board;
@@ -38,8 +39,11 @@ namespace BattleShip
             if(board._ships.Count == 0)
             {
                 Debug.Log("Game Over, Turn Count: " + board._turn);
-                RecordCount();
-                RecordAttempts();
+                if(record)
+                {
+                    RecordCount(); 
+                    RecordAttempts();
+                }
             }
         }
         

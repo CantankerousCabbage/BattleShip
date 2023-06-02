@@ -242,7 +242,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 100
+  MaxStep: 5000000
   game: {fileID: 2129349052}
   _attempts: 0
 --- !u!4 &1174001187
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 1
+    VectorObservationSize: 100
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DecisionPeriod: 20
-  TakeActionsBetweenDecisions: 1
+  TakeActionsBetweenDecisions: 0
 --- !u!114 &1174001190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +319,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 500
+  MaxStep: 500000
 --- !u!1 &2129349051
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,9 +353,10 @@ MonoBehaviour:
   _cell: {fileID: 5380006534888406487, guid: 319f2bc9347dc2a4bb3562381de7ffc3, type: 3}
   _camera: {fileID: 519420031}
   shipsVisible: 1
-  name: Test
+  name: Test2-Masking
   hitReward: 1
   agent: {fileID: 1174001186}
+  record: 1
   _dimensions: 10
   board: {fileID: 0}
 --- !u!4 &2129349053
