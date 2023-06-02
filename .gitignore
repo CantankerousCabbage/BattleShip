@@ -2,13 +2,13 @@
 # It's been taken from https://www.toptal.com/developers/gitignore/api/unity
 
 ### Unity ###
-/BattleShip/[Ll]ibrary/
-/BattleShip/[Tt]emp/
-/BattleShip/[Oo]bj/
-/BattleShip/[Bb]uild/
-/BattleShip/[Bb]uilds/
-/BattleShip/[Ll]ogs/
-/BattleShip/[Uu]ser[Ss]ettings/
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
