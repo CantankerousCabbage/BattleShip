@@ -1,0 +1,49 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1685612193",
+        "python_version": "3.8.16 (default, Mar  2 2023, 03:18:16) [MSC v.1916 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\Warren\\anaconda3\\envs\\Python38\\Scripts\\mlagents-learn config/boom.yaml --run-id=boomTest --resume",
+        "mlagents_version": "0.30.0",
+        "mlagents_envs_version": "0.30.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1685612204"
+    },
+    "total": 10.302094,
+    "count": 1,
+    "self": 0.008115100000001263,
+    "children": {
+        "run_training.setup": {
+            "total": 0.10372289999999995,
+            "count": 1,
+            "self": 0.10372289999999995
+        },
+        "TrainerController.start_learning": {
+            "total": 10.190256,
+            "count": 1,
+            "self": 0.00012109999999943,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 9.8136368,
+                    "count": 1,
+                    "self": 9.8136368
+                },
+                "TrainerController._save_models": {
+                    "total": 0.37649810000000095,
+                    "count": 1,
+                    "self": 0.009071000000002272,
+                    "children": {
+                        "RLTrainer._checkpoint": {
+                            "total": 0.3674270999999987,
+                            "count": 1,
+                            "self": 0.3674270999999987
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
