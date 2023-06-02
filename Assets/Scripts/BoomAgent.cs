@@ -11,6 +11,7 @@ namespace BattleShip
     {   
 
         [SerializeField] Game game;
+        List<int> actions;
         
 
         void Start()
@@ -21,6 +22,7 @@ namespace BattleShip
 
         public override void OnEpisodeBegin()
         {
+            this.actions.Clear();
             game.Reset();
         }
 
@@ -33,40 +35,29 @@ namespace BattleShip
         public override void CollectObservations(VectorSensor sensor)
         {
             // TODO: This is just a dummy observation of size 1. Replace!
-            sensor.AddObservation(game.hitReward);
+            sensor.AddObservation();
         }
 
         public override void OnActionReceived(ActionBuffers actionBuffers)
         {
             // TODO: Replace with logic to control the bird based on the input recevied.
-            int x_chosen = actionBuffers.DiscreteActions[0];
-            int y_chosen = actionBuffers.DiscreteActions[1];
-            // Debug.Log("Action chosen = " + action_chosen);
+            int choice = actionBuffers.DiscreteActions[0];
+            actions.Add(choice);
+
+            int x_chosen = choice % game._dimensions;
+            int y_chosen = choice / game._dimensions; 
             Cell cell = game.board._cellList[x_chosen, y_chosen];
 
-            if(!cell.marked)
-            {
-                game.fire(x_chosen,y_chosen);
-            }
             
-            // switch (action_chosen)
-            // {
-            //     case 0: 
-            //         game.fire(0,0);
-            //         break;
-            //     case 1:
-            //         game.fire(5,4);
-            //         break;
-            //     case 2:
-            //         game.fire(8,3);
-            //         break;
-            //     case 3:
-            //         game.fire(4,2);
-            //         break;
-            //     case 4:
-            //         game.fire(1,1);
-            //         break;
-            // }
+            game.fire(x_chosen,y_chosen);
+        }
+
+        public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
+        {   
+            foreach(int action in this.actions)
+            {
+                actionMask.SetActionEnabled(0, action, false);
+            }           
         }
     }
 }

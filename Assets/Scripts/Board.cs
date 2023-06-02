@@ -25,14 +25,17 @@ namespace BattleShip
         private List<Cell> _missList;
         private Vector2 _origin;
         private float _offset = 0.5f;
+        private BoomAgent agent;
 
 
 
 
         public Board(Game game, int dimensions, Cell cell, Camera camera, bool visible, Vector2 origin)  
         {   
+            
             Debug.Log("New Game");
             Debug.Log("---------------------------------------");
+            this.agent = GetComponent<BoomAgent>();
             this._game = game;
             this._origin = origin;
             this._dimensions = dimensions;
@@ -67,7 +70,7 @@ namespace BattleShip
             if(cell.Occupied)
             {   
                 //** Reward
-                _game.agent.HandleHits();
+                agent.HandleHits();
 
                 Debug.Log("Hit:  (" + X + ", " + Y + ")");
                 Ship target = cell._ship; 
