@@ -276,8 +276,8 @@ MonoBehaviour:
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 0a0000000a000000
-    VectorActionSize: 0a0000000a000000
+      BranchSizes: 64000000
+    VectorActionSize: 64000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -353,7 +353,7 @@ MonoBehaviour:
   _camera: {fileID: 519420031}
   shipsVisible: 1
   name: Test
-  hitReward: 0
+  hitReward: 1
   agent: {fileID: 1174001186}
   _dimensions: 10
   board: {fileID: 0}
