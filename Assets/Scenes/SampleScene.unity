@@ -244,6 +244,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 100
   game: {fileID: 2129349052}
+  _attempts: 0
 --- !u!4 &1174001187
 Transform:
   m_ObjectHideFlags: 0

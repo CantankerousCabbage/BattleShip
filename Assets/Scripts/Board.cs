@@ -25,7 +25,7 @@ namespace BattleShip
         private List<Cell> _missList;
         private Vector2 _origin;
         private float _offset = 0.5f;
-        private BoomAgent agent;
+        // private BoomAgent agent;
 
 
 
@@ -35,7 +35,7 @@ namespace BattleShip
             
             Debug.Log("New Game");
             Debug.Log("---------------------------------------");
-            this.agent = GetComponent<BoomAgent>();
+            // this.agent = GetComponent<BoomAgent>();
             this._game = game;
             this._origin = origin;
             this._dimensions = dimensions;
@@ -70,9 +70,9 @@ namespace BattleShip
             if(cell.Occupied)
             {   
                 //** Reward
-                agent.HandleHits();
+                this._game.agent.HandleHits();
 
-                Debug.Log("Hit:  (" + X + ", " + Y + ")");
+                // Debug.Log("Hit:  (" + X + ", " + Y + ")");
                 Ship target = cell._ship; 
 
                 this._hitList.Add(cell);
@@ -87,7 +87,7 @@ namespace BattleShip
             }
             else
             {   
-                Debug.Log("Miss: (" + X + ", " + Y + ")");
+                // Debug.Log("Miss: (" + X + ", " + Y + ")");
                 this._missList.Add(cell);
             }
         }
