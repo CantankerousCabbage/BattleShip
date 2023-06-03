@@ -50,7 +50,7 @@ namespace BattleShip
 
         public void WinGame()
         {
-            AddReward(100 - this._attempts);
+            AddReward((100 - (float)this._attempts) * 0.1);
         } 
 
 
@@ -89,9 +89,14 @@ namespace BattleShip
             if(_attempts > 1)
             {
                 if(Adjacent(this.lastTurn, currentChoice) && lastTurn.Occupied)
-                {
+                {   
+                    if(lastTurn.Occupied)
+                    {
+                       AdjacentHitReward(); 
+                    }
                     AdjacentHitReward();
                 }
+                
             }
             
             this.lastTurn = currentChoice;
@@ -108,7 +113,7 @@ namespace BattleShip
 
         public bool Adjacent(Cell old, Cell current)
         {
-            return Mathf.Abs(old.Y - current.Y + old.X - current.X) == 1;
+            return Mathf.Abs((old.Y - current.Y) + (current.X - old.X)) == 1;
         }
 
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
