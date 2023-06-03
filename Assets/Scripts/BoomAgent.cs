@@ -50,27 +50,20 @@ namespace BattleShip
 
         public void WinGame()
         {
-            AddReward((100 - (float)this._attempts) * 0.1);
+            AddReward((100.0f - (float)this._attempts) * 0.1f);
         } 
 
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            //Observation 2d matrix observations
-            // for(int y = 0; y < game._dimensions; y++)
-            // {
-            //     for(int x = 0; x < game._dimensions; x++)
-            //     {   
-            //         Cell cell = game.board._cellList[x, y];
-            //         sensor.AddObservation(cell._status);
-            //     }
-            // }
+            
             if(_attempts > 0)
             {   
                 //Observations X, Y of last shot. Status (hit or miss)
-                sensor.AddObservation(lastTurn.X);
-                sensor.AddObservation(lastTurn.Y); 
-                sensor.AddObservation(lastTurn._status); 
+                sensor.AddObservation(game.board._stateList);
+                // sensor.AddObservation(lastTurn.X);
+                // sensor.AddObservation(lastTurn.Y); 
+                // sensor.AddObservation(lastTurn._status); 
             }
 
         }
@@ -94,7 +87,7 @@ namespace BattleShip
                     {
                        AdjacentHitReward(); 
                     }
-                    AdjacentHitReward();
+                    
                 }
                 
             }

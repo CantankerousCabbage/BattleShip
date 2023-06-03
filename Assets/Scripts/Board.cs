@@ -19,6 +19,7 @@ namespace BattleShip
         public bool shipsVisible;
 
         public Cell[,] _cellList;
+        public int[,] _stateList;
         public int _turn;
 
         public List<Cell> _hitList;
@@ -45,6 +46,7 @@ namespace BattleShip
             this._turn = 0;
 
             _cellList = new Cell[_dimensions, _dimensions];
+            _stateList = new int[_dimensions, _dimensions];
             _ships = new List<Ship>();
             _hitList = new List<Cell>();
             _missList = new List<Cell>();
@@ -84,7 +86,7 @@ namespace BattleShip
                 if(target._placement.Count == 0)
                 {
                     this._ships.RemoveAll(ship => ship._name == target._name);
-                    SunkShipNotice(target);
+                    // SunkShipNotice(target);
                 }
             }
             else
@@ -120,7 +122,8 @@ namespace BattleShip
                     boardCell.name = $"Cell {countX} {countY}";
                     bool offset = ((x + y) % 2 == 0) ? true : false;
                     boardCell.Init(this, offset, this.shipsVisible, countX, countY);
-
+                    
+                    _stateList[countX, countY] = 0;
                     _cellList[countX, countY] = boardCell;
                 }
                 countY = 0;
