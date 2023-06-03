@@ -24,7 +24,7 @@ namespace BattleShip
 
             if(records.Count == archiveLimit)
             {
-                string outputFile = "Logs/Results/" + this.name + ".txt";
+                string outputFile = "Logs/Results/" + this.trainingName + ".txt";
                 string turns = "";
                 int sum = 0;
                 foreach(int count in records)

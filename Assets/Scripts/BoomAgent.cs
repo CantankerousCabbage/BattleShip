@@ -43,6 +43,11 @@ namespace BattleShip
             AddReward(0.5f);
         } 
 
+        public void AdjacentMissPenalty()
+        {
+            AddReward(-0.1f);
+        } 
+
         public void TimePenalty()
         {   //Off
             AddReward(-0.1f);
@@ -50,7 +55,7 @@ namespace BattleShip
 
         public void WinGame()
         {
-            AddReward(((100.0f - (float)this._attempts) * 0.1f));
+            AddReward(((100.0f - (float)this._attempts)));
         } 
 
 
@@ -68,10 +73,11 @@ namespace BattleShip
             if(_attempts > 0)
             {   
                 //Observations X, Y of last shot. Status (hit or miss)
-                sensor.AddObservation(_actions[_actions.Count - 1]);
+                // sensor.AddObservation(_actions[_actions.Count - 1]);
                 sensor.AddObservation(lastTurn.X);
                 sensor.AddObservation(lastTurn.Y); 
-                sensor.AddObservation(lastTurn._status); 
+                sensor.AddObservation(game.board._hitCount); 
+                sensor.AddObservation(game.board._missCount); 
             }
 
         }
@@ -89,11 +95,15 @@ namespace BattleShip
             //Reward for selecting adjacent to a hit
             if(_attempts > 1)
             {
-                if(Adjacent(this.lastTurn, currentChoice) && lastTurn.Occupied)
+                if(Adjacent(this.lastTurn, currentChoice))
                 {   
                     if(lastTurn.Occupied)
                     {
                        AdjacentHitReward(); 
+                    }
+                    else
+                    {
+                        AdjacentMissPenalty();
                     }
                 }
                 

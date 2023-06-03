@@ -19,10 +19,9 @@ namespace BattleShip
         public bool shipsVisible;
 
         public Cell[,] _cellList;
-        public int _turn;
-
-        public List<Cell> _hitList;
-        private List<Cell> _missList;
+       
+        public int _hitCount;
+        public int _missCount;
         private Vector2 _origin;
         
         // private BoomAgent agent;
@@ -42,12 +41,11 @@ namespace BattleShip
             this._cell = cell;
             this._camera = camera;
             this.shipsVisible = visible;
-            this._turn = 0;
 
             _cellList = new Cell[_dimensions, _dimensions];
             _ships = new List<Ship>();
-            _hitList = new List<Cell>();
-            _missList = new List<Cell>();
+            _hitCount = 0;
+            _missCount = 0;
 
             GenerateBoard();
 
@@ -60,37 +58,55 @@ namespace BattleShip
             PlaceShips();
         }
 
+        public void Reset()
+        {
+
+        for (int i = 0; i < _ships.Count; i++)
+            {
+                _ships[i].Reset();
+                _ships[i] = null;
+            }
+            _ships.Clear();
+
+            // Release cells
+            for (int x = 0; x < _dimensions; x++)
+            {
+                for (int y = 0; y < _dimensions; y++)
+                {
+                    Cell cell = _cellList[x, y];
+                    cell.Reset();
+                    GameObject.Destroy(cell.gameObject);
+                }
+            }
+            _cellList = null;
+
+        }
+
         public void fire(int X, int Y)
         {   
-
-            this._turn += 1;
             Cell cell = _cellList[X,Y];
 
-            // TODO remove marked;
-            // cell.marked = true;
             cell.Fire();
             if(cell.Occupied)
             {   
                 //** Reward
                 this._game.agent.HandleHits();
 
-                // Debug.Log("Hit:  (" + X + ", " + Y + ")");
                 Ship target = cell._ship; 
+                this._hitCount++;
 
-                this._hitList.Add(cell);
                 //Remove cell from from ships placement list.
                 target._placement.RemoveAll(x => (x.X == cell.X && x.Y == cell.Y));
                 //If no placements remaining remove ship form boards ship list
                 if(target._placement.Count == 0)
                 {
                     this._ships.RemoveAll(ship => ship._name == target._name);
-                    SunkShipNotice(target);
+                    // SunkShipNotice(target);
                 }
             }
             else
             {   
-                // Debug.Log("Miss: (" + X + ", " + Y + ")");
-                this._missList.Add(cell);
+                this._missCount++;
             }
         }
 
@@ -104,7 +120,6 @@ namespace BattleShip
 
         void GenerateBoard()
         {
-
             int _beginX = (int)_origin.x;
             int _beginY = (int)_origin.y;
             int endX = _beginX + _dimensions;
@@ -126,14 +141,10 @@ namespace BattleShip
                 countY = 0;
             }
         }
-
-        void SunkShipNotice(Ship ship)
-        {
-            Debug.Log("Sunk: " + ship._name + ", Turn: " + this._turn);
-        }
+        // void SunkShipNotice(Ship ship)
+        // {
+        //     Debug.Log("Sunk: " + ship._name + ", Turn: " + this._turn);
+        // }
     }
-
-
-
 }
 

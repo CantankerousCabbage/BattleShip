@@ -26,14 +26,13 @@ namespace BattleShip
             this._placement = new List<Cell>();
         }
 
-        // public bool Hit(Cell cell)
-        // {
-        //     this._placement.RemoveAll(x => (x.X == cell.X && x.Y == cell.Y));
-        //     if(this._placement.Count == 0)
-        //     {
-        //         board._ships.RemoveAll(ship => ship._name == this._name);
-        //     }
-        // }
+        public void Reset()
+        {   
+            this.board = null;
+            _placement.Clear();
+            _placement = null;
+        }
+
 
         public void Spawn()
         {
