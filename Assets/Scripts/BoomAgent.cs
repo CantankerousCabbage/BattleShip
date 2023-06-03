@@ -79,7 +79,8 @@ namespace BattleShip
         {
             _attempts++;
             // Debug.Log("Choice");
-            int choice = actionBuffers.DiscreteActions[0];   
+            int choice = actionBuffers.DiscreteActions[0]; 
+            _actions.Add(choice);  
             int x_chosen = choice % game._dimensions;
             int y_chosen = choice / game._dimensions;
             Cell currentChoice = game.board._cellList[x_chosen, y_chosen];
@@ -93,14 +94,15 @@ namespace BattleShip
                 }
             }
             
+            this.lastTurn = currentChoice;
+
             game.fire(currentChoice);
             if(game.board._ships.Count == 0)
             {
                 WinGame();
                 EndEpisode();
             }
-            _actions.Add(choice); 
-            this.lastTurn = currentChoice;
+            
                 
         }
 
@@ -112,6 +114,8 @@ namespace BattleShip
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
         {   
             // Debug.Log("Mask");
+            // Debug.Log("Attemps: " + _attempts);
+            // Debug.Log("Actions: " + _actions.Count);
             foreach(int action in this._actions)
             {        
                 actionMask.SetActionEnabled(0, action, false);
