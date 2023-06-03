@@ -40,7 +40,7 @@ namespace BattleShip
 
         public void AdjacentHitReward()
         {
-            AddReward(1.0f);
+            AddReward(0.5f);
         } 
 
         public void TimePenalty()
