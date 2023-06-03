@@ -40,7 +40,7 @@ namespace BattleShip
 
         public void AdjacentHitReward()
         {
-            AddReward(1.0f);
+            AddReward(0.5f);
         } 
 
         public void TimePenalty()
@@ -50,7 +50,7 @@ namespace BattleShip
 
         public void WinGame()
         {
-            AddReward((100 - (float)this._attempts) * 0.1);
+            AddReward(((100.0f - (float)this._attempts) * 0.1f));
         } 
 
 
@@ -68,6 +68,7 @@ namespace BattleShip
             if(_attempts > 0)
             {   
                 //Observations X, Y of last shot. Status (hit or miss)
+                sensor.AddObservation(_actions[_actions.Count - 1]);
                 sensor.AddObservation(lastTurn.X);
                 sensor.AddObservation(lastTurn.Y); 
                 sensor.AddObservation(lastTurn._status); 
@@ -94,7 +95,6 @@ namespace BattleShip
                     {
                        AdjacentHitReward(); 
                     }
-                    AdjacentHitReward();
                 }
                 
             }
