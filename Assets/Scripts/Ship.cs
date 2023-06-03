@@ -71,12 +71,7 @@ namespace BattleShip
             }
               
             Random rnd = new Random();
-            // Debug.Log("Ship length: " + this._length);
-            // Debug.Log("Count: " + options.Count);
-
             List<Cell> location = options[rnd.Next(options.Count)];
-            
-
             foreach (Cell cell in location)
             {
                 cell.Occupied = true;

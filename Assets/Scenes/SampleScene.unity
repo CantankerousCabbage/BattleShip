@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 100
+    VectorObservationSize: 2
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -353,7 +353,7 @@ MonoBehaviour:
   _cell: {fileID: 5380006534888406487, guid: 319f2bc9347dc2a4bb3562381de7ffc3, type: 3}
   _camera: {fileID: 519420031}
   shipsVisible: 1
-  name: Test2-Masking
+  name: Test3-RNN-Pos
   hitReward: 1
   agent: {fileID: 1174001186}
   record: 1

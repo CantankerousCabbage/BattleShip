@@ -15,7 +15,7 @@ namespace BattleShip
           public bool _offset {get; set;}
           public Ship _ship {get; set;}
           public int _status {get; set;}
-          public bool marked {get; set;}
+          // public bool marked {get; set;}
 
           private bool _occupied;
           public bool Occupied
@@ -51,7 +51,7 @@ namespace BattleShip
           public void Init(Board board, bool isOffset, bool visible, int x, int y)
           {    
                this._status = 0;
-               this.marked = false;
+               // this.marked = false;
                this.X = x;
                this.Y = y;
                this._board = board;

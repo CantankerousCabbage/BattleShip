@@ -10,13 +10,16 @@ namespace BattleShip
     public class BoomAgent : Agent // Note that BirdAgent implements 'Agent', not 'MonoBehaviour'
     {   
 
-        [SerializeField] Game game;
+        // [SerializeField] Game game;
+        public Game game;
         public int _attempts;
         List<int> _actions;
+        Cell lastTurn;
         
 
         void Start()
         {   
+            this.game = GetComponent<Game>();
             this._attempts = 0;
             this._actions = new List<int>();
             // TODO: Allows training to run in the background when the Unity window loses focus.
@@ -32,64 +35,88 @@ namespace BattleShip
 
         public void HandleHits()
         {
+            AddReward(0.5f);
+        } 
+
+        public void AdjacentHitReward()
+        {
             AddReward(1.0f);
         } 
 
         public void TimePenalty()
-        {
+        {   //Off
             AddReward(-0.1f);
         } 
 
         public void WinGame()
         {
-            AddReward(2.0f);
+            AddReward(100 - this._attempts);
         } 
 
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            // TODO: This is just a dummy observation of size 1. Replace!
-            for(int y = 0; y < game._dimensions; y++)
-            {
-                for(int x = 0; x < game._dimensions; x++)
-                {   
-                    Cell cell = game.board._cellList[x, y];
-                    sensor.AddObservation(cell._status);
-                }
+            //Observation 2d matrix observations
+            // for(int y = 0; y < game._dimensions; y++)
+            // {
+            //     for(int x = 0; x < game._dimensions; x++)
+            //     {   
+            //         Cell cell = game.board._cellList[x, y];
+            //         sensor.AddObservation(cell._status);
+            //     }
+            // }
+            if(_attempts > 0)
+            {   
+                //Observations X, Y of last shot. Status (hit or miss)
+                sensor.AddObservation(lastTurn.X);
+                sensor.AddObservation(lastTurn.Y); 
+                sensor.AddObservation(lastTurn._status); 
             }
-            
+
         }
 
         public override void OnActionReceived(ActionBuffers actionBuffers)
         {
-            // TODO: Replace with logic to control the bird based on the input recevied.
-            TimePenalty();
             _attempts++;
-            Debug.Log("Choice");
-            int choice = actionBuffers.DiscreteActions[0];
-            _actions.Add(choice);
+            // Debug.Log("Choice");
+            int choice = actionBuffers.DiscreteActions[0];   
             int x_chosen = choice % game._dimensions;
-            int y_chosen = choice / game._dimensions; 
-            Cell cell = game.board._cellList[x_chosen, y_chosen];
+            int y_chosen = choice / game._dimensions;
+            Cell currentChoice = game.board._cellList[x_chosen, y_chosen];
 
-            if(!cell.marked)
+            //Reward for selecting adjacent to a hit
+            if(_attempts > 1)
             {
-                game.fire(x_chosen,y_chosen);
-                if(game.board._ships.Count == 0)
+                if(Adjacent(this.lastTurn, currentChoice) && lastTurn.Occupied)
                 {
-                    WinGame();
-                    EndEpisode();
+                    AdjacentHitReward();
                 }
-            }     
+            }
+            
+            game.fire(currentChoice);
+            if(game.board._ships.Count == 0)
+            {
+                WinGame();
+                EndEpisode();
+            }
+            _actions.Add(choice); 
+            this.lastTurn = currentChoice;
+                
+        }
+
+        public bool Adjacent(Cell old, Cell current)
+        {
+            return Mathf.Abs(old.Y - current.Y + old.X - current.X) == 1;
         }
 
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
         {   
-            Debug.Log("Mask");
+            // Debug.Log("Mask");
             foreach(int action in this._actions)
             {        
                 actionMask.SetActionEnabled(0, action, false);
             }           
         }
+
     }
 }

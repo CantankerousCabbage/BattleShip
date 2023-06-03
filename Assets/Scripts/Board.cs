@@ -4,7 +4,7 @@ using UnityEngine;
 namespace BattleShip
 {
 
-    public class Board : MonoBehaviour
+    public class Board 
     {
         // [SerializeField] public int _dimensions = 10;
         // [SerializeField] Cell _cell;
@@ -21,10 +21,10 @@ namespace BattleShip
         public Cell[,] _cellList;
         public int _turn;
 
-        private List<Cell> _hitList;
+        public List<Cell> _hitList;
         private List<Cell> _missList;
         private Vector2 _origin;
-        private float _offset = 0.5f;
+        
         // private BoomAgent agent;
 
 
@@ -33,8 +33,8 @@ namespace BattleShip
         public Board(Game game, int dimensions, Cell cell, Camera camera, bool visible, Vector2 origin)  
         {   
             
-            Debug.Log("New Game");
-            Debug.Log("---------------------------------------");
+            // Debug.Log("New Game");
+            // Debug.Log("---------------------------------------");
             // this.agent = GetComponent<BoomAgent>();
             this._game = game;
             this._origin = origin;
@@ -65,7 +65,9 @@ namespace BattleShip
 
             this._turn += 1;
             Cell cell = _cellList[X,Y];
-            cell.marked = true;
+
+            // TODO remove marked;
+            // cell.marked = true;
             cell.Fire();
             if(cell.Occupied)
             {   
@@ -114,20 +116,15 @@ namespace BattleShip
             {
                 for(int y = _beginY; y < endY; y++, countY++)
                 {
-                    var boardCell = Instantiate(_cell, new Vector3(x, y), Quaternion.identity);
+                    var boardCell = GameObject.Instantiate(_cell, new Vector3(x, y), Quaternion.identity, _game.transform);
                     boardCell.name = $"Cell {countX} {countY}";
                     bool offset = ((x + y) % 2 == 0) ? true : false;
                     boardCell.Init(this, offset, this.shipsVisible, countX, countY);
-
 
                     _cellList[countX, countY] = boardCell;
                 }
                 countY = 0;
             }
-
-            // Camera to hover over board
-            float center = (float)_dimensions/2 - _offset;
-            _camera.transform.position = new Vector3(center, center, -10);
         }
 
         void SunkShipNotice(Ship ship)
