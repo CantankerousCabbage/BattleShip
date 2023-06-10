@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 993ec0e1c2d26684385440d4fbebef39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainingName: Test8
+  trainingName: Test40
   archiveLimit: 10
   record: 1
 --- !u!4 &952526818
@@ -289,17 +289,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5891404417593567842, guid: 1ffa2ff5013b5f647a0348c396f04036, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5891404417593567844, guid: 1ffa2ff5013b5f647a0348c396f04036, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5891404417593567844, guid: 1ffa2ff5013b5f647a0348c396f04036, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.19153504
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5891404417593567844, guid: 1ffa2ff5013b5f647a0348c396f04036, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.6707774
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5891404417593567844, guid: 1ffa2ff5013b5f647a0348c396f04036, type: 3}
       propertyPath: m_LocalPosition.z
@@ -356,11 +360,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5891404417593567769, guid: 1ffa2ff5013b5f647a0348c396f04036, type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
-      value: 4
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5891404417593567769, guid: 1ffa2ff5013b5f647a0348c396f04036, type: 3}
       propertyPath: m_BrainParameters.NumStackedVectorObservations
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5891404417593567842, guid: 1ffa2ff5013b5f647a0348c396f04036, type: 3}
       propertyPath: m_Name
@@ -372,15 +376,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5891404417593567844, guid: 1ffa2ff5013b5f647a0348c396f04036, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.19153504
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5891404417593567844, guid: 1ffa2ff5013b5f647a0348c396f04036, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.6707774
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5891404417593567844, guid: 1ffa2ff5013b5f647a0348c396f04036, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.18254071
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5891404417593567844, guid: 1ffa2ff5013b5f647a0348c396f04036, type: 3}
       propertyPath: m_LocalRotation.w
@@ -414,6 +418,10 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 5891404417593567846, guid: 1ffa2ff5013b5f647a0348c396f04036, type: 3}
+      propertyPath: MaxStep
+      value: 5000
+      objectReference: {fileID: 0}
     - target: {fileID: 5891404417593567847, guid: 1ffa2ff5013b5f647a0348c396f04036, type: 3}
       propertyPath: DecisionPeriod
       value: 20
@@ -437,7 +445,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1937872053
 AudioListener:
   m_ObjectHideFlags: 0

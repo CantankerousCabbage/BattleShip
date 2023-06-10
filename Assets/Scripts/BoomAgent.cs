@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
@@ -14,6 +15,7 @@ namespace BattleShip
         public Game game;
         public int _attempts;
         List<int> _actions;
+        int[] _state;
         Cell lastTurn;
         
 
@@ -22,12 +24,14 @@ namespace BattleShip
             this.game = GetComponent<Game>();
             this._attempts = 0;
             this._actions = new List<int>();
+            this._state = new int[game._dimensions * game._dimensions];
             // TODO: Allows training to run in the background when the Unity window loses focus.
             Application.runInBackground = true;
         }
 
         public override void OnEpisodeBegin()
         {   
+            Array.Clear(_state, 0, _state.Length);
             _actions.Clear();
             this._attempts = 0;
             game.Reset();
@@ -38,6 +42,11 @@ namespace BattleShip
             AddReward(0.5f);
         } 
 
+        public void SunkShipReward()
+        {
+           AddReward(1.0f); 
+        }
+
         public void AdjacentHitReward()
         {
             AddReward(0.5f);
@@ -45,7 +54,7 @@ namespace BattleShip
 
         public void TimePenalty()
         {   //Off
-            AddReward(-0.1f);
+            AddReward(-.05f);
         } 
 
         public void WinGame()
@@ -57,14 +66,17 @@ namespace BattleShip
         public override void CollectObservations(VectorSensor sensor)
         {
             
-            if(_attempts > 0)
-            {   
-                //Observations X, Y of last shot. Status (hit or miss)
-                sensor.AddObservation(game.board._stateList);
+              
+            foreach(int cell in this._state)
+            {
+                sensor.AddObservation(cell);
+            }
+
+                // Observations X, Y of last shot. Status (hit or miss)
                 // sensor.AddObservation(lastTurn.X);
                 // sensor.AddObservation(lastTurn.Y); 
                 // sensor.AddObservation(lastTurn._status); 
-            }
+            
 
         }
 
@@ -72,7 +84,8 @@ namespace BattleShip
         {
             _attempts++;
             // Debug.Log("Choice");
-            int choice = actionBuffers.DiscreteActions[0]; 
+            int choice = actionBuffers.DiscreteActions[0];
+            TimePenalty(); 
             _actions.Add(choice);  
             int x_chosen = choice % game._dimensions;
             int y_chosen = choice / game._dimensions;
@@ -100,7 +113,7 @@ namespace BattleShip
                 WinGame();
                 EndEpisode();
             }
-            
+            _state[choice] = currentChoice._status;
                 
         }
 
@@ -111,9 +124,6 @@ namespace BattleShip
 
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
         {   
-            // Debug.Log("Mask");
-            // Debug.Log("Attemps: " + _attempts);
-            // Debug.Log("Actions: " + _actions.Count);
             foreach(int action in this._actions)
             {        
                 actionMask.SetActionEnabled(0, action, false);

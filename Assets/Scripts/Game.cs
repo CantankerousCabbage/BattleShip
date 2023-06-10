@@ -35,16 +35,14 @@ namespace BattleShip
 
             // Camera to hover over board
             float center = (float)_dimensions / 2 - _offset;
-            // float x = transform.position.x + center;
-            // float y = transform.position.y + center;
             _camera.transform.position = transform.position + new Vector3(center, center, -10);
         }
 
         public void Reset() 
         {
+            board.Reset();
             board = null;
             this.board = new Board(this, _dimensions, _cell, _camera, shipsVisible, _location);
-
         }
 
         public void fire(int X, int Y)
@@ -52,7 +50,7 @@ namespace BattleShip
             board.fire(X, Y);
             if(board._ships.Count == 0)
             {
-                // Debug.Log("Game Over, Turn Count: " + board._turn);
+                // Debug.Log(manager.record);
                 if(manager.record)
                 {
                     RecordCount(); 
@@ -87,12 +85,7 @@ namespace BattleShip
                 results = File.AppendText(outputFile);
             }
 
-            // Write to the file:
-            // results.WriteLine(DateTime.Now);
             results.WriteLine(turns);
-            // results.WriteLine();
-
-            // Close the stream:
             results.Close();
         }
     }

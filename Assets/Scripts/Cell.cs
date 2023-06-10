@@ -67,6 +67,10 @@ namespace BattleShip
                this._status = (this.Occupied) ? 1 : -1;
           }
 
+          public void Reset()
+          {
+              this._board = null; 
+          }
           private void OnMouseDown() 
           {   
                this._board._game.fire(X, Y);
