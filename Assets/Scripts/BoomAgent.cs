@@ -11,14 +11,14 @@ namespace BattleShip
     public class BoomAgent : Agent // Note that BirdAgent implements 'Agent', not 'MonoBehaviour'
     {   
 
-        // [SerializeField] Game game;
+        //Game object and state/status trackers
         public Game game;
         public int _attempts;
         List<int> _actions;
         int[] _state;
         Cell lastTurn;
         
-
+        //Initialise initial settings
         void Start()
         {   
             this.game = GetComponent<Game>();
@@ -29,6 +29,7 @@ namespace BattleShip
             Application.runInBackground = true;
         }
 
+        //Resets gameboard and frees assigned memory
         public override void OnEpisodeBegin()
         {   
             Array.Clear(_state, 0, _state.Length);
@@ -37,6 +38,7 @@ namespace BattleShip
             game.Reset();
         }
 
+        //Different award methods
         public void HandleHits()
         {
             AddReward(0.5f);
@@ -62,28 +64,19 @@ namespace BattleShip
             AddReward((100.0f - (float)this._attempts) * 0.1f);
         } 
 
-
+        //Provides board state. Based on dimensions
         public override void CollectObservations(VectorSensor sensor)
         {
             
-              
             foreach(int cell in this._state)
             {
                 sensor.AddObservation(cell);
             }
-
-                // Observations X, Y of last shot. Status (hit or miss)
-                // sensor.AddObservation(lastTurn.X);
-                // sensor.AddObservation(lastTurn.Y); 
-                // sensor.AddObservation(lastTurn._status); 
-            
-
         }
-
+        //Parses action to vectors and manages agent rewards/step cycle
         public override void OnActionReceived(ActionBuffers actionBuffers)
         {
             _attempts++;
-            // Debug.Log("Choice");
             int choice = actionBuffers.DiscreteActions[0];
             TimePenalty(); 
             _actions.Add(choice);  
@@ -116,12 +109,14 @@ namespace BattleShip
             _state[choice] = currentChoice._status;
                 
         }
-
+        //Deprecated, was used to determine test reward for following up hits with 
+        //shots on adjacent tiles
         public bool Adjacent(Cell old, Cell current)
         {
             return Mathf.Abs((old.Y - current.Y) + (current.X - old.X)) == 1;
         }
 
+        //Action mask to prevent repeated shots on already selected tiles
         public override void WriteDiscreteActionMask(IDiscreteActionMask actionMask)
         {   
             foreach(int action in this._actions)

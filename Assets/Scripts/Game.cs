@@ -8,15 +8,11 @@ namespace BattleShip
 
     public class Game : MonoBehaviour
     {   
-        // [SerializeField] Vector2 _location;
+        
         [SerializeField] Cell _cell;
         [SerializeField] Camera _camera;
         [SerializeField] bool shipsVisible;
-        // [SerializeField] string name;
-        [SerializeField] public float hitReward;
-        // [SerializeField] public BoomAgent agent;
-        
-        // [SerializeField] bool record;
+
         Vector2 _location;
         public int _dimensions = 10;
         private float _offset = 0.50f;
@@ -26,9 +22,8 @@ namespace BattleShip
         // Start is called before the first frame update
         void Start()
         {   
-            // Vector2 location1 = new Vector2(0,0);
+            //Initialise board and agent varibles
             this._location = (Vector2)transform.position;
-            // this._location = new Vector2(transform.x, transform.y);
             this.manager = transform.parent.gameObject.GetComponent<GameManager>();
             this.board = new Board(this, _dimensions, _cell, _camera, shipsVisible, _location); 
             this.agent = GetComponent<BoomAgent>(); 
@@ -38,6 +33,7 @@ namespace BattleShip
             _camera.transform.position = transform.position + new Vector3(center, center, -10);
         }
 
+        //Free memory from hierarchy
         public void Reset() 
         {
             board.Reset();
@@ -45,12 +41,12 @@ namespace BattleShip
             this.board = new Board(this, _dimensions, _cell, _camera, shipsVisible, _location);
         }
 
+        //Manages firing and records
         public void fire(int X, int Y)
         {
             board.fire(X, Y);
             if(board._ships.Count == 0)
             {
-                // Debug.Log(manager.record);
                 if(manager.record)
                 {
                     RecordCount(); 
@@ -59,6 +55,7 @@ namespace BattleShip
             }
         }
 
+        //Overloaded fire method
         public void fire(Cell current)
         {
             fire(current.X, current.Y);
@@ -69,6 +66,8 @@ namespace BattleShip
            manager.Record(agent._attempts);
         }
 
+        //Deprecated Attemps record keeper. For recording failed shots when actions
+        //were drawn from two discrete branches with no action mask
         public void RecordAttempts()
         {   
             string outputFile = "Logs/Results/" + this.name + "_Attempts.txt";

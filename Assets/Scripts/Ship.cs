@@ -9,12 +9,10 @@ namespace BattleShip
 {
     public class Ship
     {   
-        
+        //Variables and list of cells ship occupies
         public Board board;
         public string _name;
-        // int _width;
         private int _length;
-
         public List<Cell> _placement;
 
         // Start is called before the first frame update
@@ -26,6 +24,7 @@ namespace BattleShip
             this._placement = new List<Cell>();
         }
 
+        //Free's memory
         public void Reset()
         {   
             this.board = null;
@@ -33,11 +32,11 @@ namespace BattleShip
             _placement = null;
         }
 
-
+        //Generates all valid spawn locations for ship then randomly selects one
         public void Spawn()
         {
             List<List<Cell>> options = new List<List<Cell>>();
-
+            //Valid location with x-axis orientation
             int edgeOffset = board._dimensions - this._length + 1;
             for(int y = 0; y < board._dimensions; y++)
             {
@@ -53,7 +52,7 @@ namespace BattleShip
                         if(clearPlacement) options.Add(candidate); 
                 }
             }
-
+            //Valid location with y-axis orientation
             for(int x = 0; x < board._dimensions; x++)
             {
                 for(int y = 0; y < edgeOffset; y++)
@@ -68,7 +67,6 @@ namespace BattleShip
                         if(clearPlacement) options.Add(candidate); 
                 }
             }
-              
             Random rnd = new Random();
             List<Cell> location = options[rnd.Next(options.Count)];
             foreach (Cell cell in location)

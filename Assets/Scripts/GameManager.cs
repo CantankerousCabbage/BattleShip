@@ -6,18 +6,20 @@ using System.IO;
 namespace BattleShip
 {
     public class GameManager : MonoBehaviour
-    {       
+    {     
+        //Name that results are submitted to. Used for generating graphs  
         [SerializeField] string trainingName;
+        //Average games result is calculated off before written to file
         [SerializeField] int archiveLimit;
+        //Enables records
         [SerializeField] public bool record;
-
         List<int> records;
-        // Start is called before the first frame update
+        
         void Start()
         {
             records = new List<int>(); 
         }
-
+        //Function for writing results to file
         public void Record(int gameLength)
         {
             records.Add(gameLength);
