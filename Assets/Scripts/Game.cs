@@ -19,7 +19,7 @@ namespace BattleShip
         // [SerializeField] bool record;
         Vector2 _location;
         public int _dimensions = 10;
-        private float _offset = 1.15f;
+        private float _offset = 0.50f;
         public Board board;
         public BoomAgent agent;
         public GameManager manager;
