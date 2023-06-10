@@ -1,1 +1,28 @@
-
+BattleShip
+Board Dimensions: 10 x 10
+  Ships       Length
+  Carrier       6
+  Battleship    5
+  Crusier       4
+  Submarine     3
+  Destroyer     2
+  
+  Load 'Sample Scene' in Scenes/ folder.
+  
+  Current ML Agent config ID: Test38
+  
+  To Run:
+    "mlagents-learn config/boom.yaml --run-id=Test38 --resume" in python terminal.
+    
+  Tensor Board:
+    "tensorboard --logdir results --port 6006" in python terminal.
+    
+ Training will run indefinetly till terminated.
+ 
+ Raw Results: (Average game length from 10 episodes)
+  To view results from runs view text files in:
+                                Log/Results/"name.txt"
+  Name of results file will correspond to serialized field "Training Name" on GameManager object in 'Sample Scene' heirarchy.
+  
+  To view graph results and corresponding configurations view link under results section in report.
+  

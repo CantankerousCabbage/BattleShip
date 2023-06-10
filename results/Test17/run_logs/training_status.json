@@ -1,0 +1,65 @@
+{
+    "BoomBehaviour": {
+        "checkpoints": [
+            {
+                "steps": 3499997,
+                "file_path": "results\\Test17\\BoomBehaviour\\BoomBehaviour-3499997.onnx",
+                "reward": 19.825000286102295,
+                "creation_time": 1685904959.1713588,
+                "auxillary_file_paths": [
+                    "results\\Test17\\BoomBehaviour\\BoomBehaviour-3499997.pt"
+                ]
+            },
+            {
+                "steps": 3999966,
+                "file_path": "results\\Test17\\BoomBehaviour\\BoomBehaviour-3999966.onnx",
+                "reward": 19.184722993108963,
+                "creation_time": 1685910061.8913267,
+                "auxillary_file_paths": [
+                    "results\\Test17\\BoomBehaviour\\BoomBehaviour-3999966.pt"
+                ]
+            },
+            {
+                "steps": 4499954,
+                "file_path": "results\\Test17\\BoomBehaviour\\BoomBehaviour-4499954.onnx",
+                "reward": 18.871428728103638,
+                "creation_time": 1685915164.4579852,
+                "auxillary_file_paths": [
+                    "results\\Test17\\BoomBehaviour\\BoomBehaviour-4499954.pt"
+                ]
+            },
+            {
+                "steps": 4999973,
+                "file_path": "results\\Test17\\BoomBehaviour\\BoomBehaviour-4999973.onnx",
+                "reward": 19.385898131590622,
+                "creation_time": 1685920042.5155141,
+                "auxillary_file_paths": [
+                    "results\\Test17\\BoomBehaviour\\BoomBehaviour-4999973.pt"
+                ]
+            },
+            {
+                "steps": 5481882,
+                "file_path": "results\\Test17\\BoomBehaviour\\BoomBehaviour-5481882.onnx",
+                "reward": 19.934375673532486,
+                "creation_time": 1685925426.8273098,
+                "auxillary_file_paths": [
+                    "results\\Test17\\BoomBehaviour\\BoomBehaviour-5481882.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 5481882,
+            "file_path": "results\\Test17\\BoomBehaviour.onnx",
+            "reward": 19.934375673532486,
+            "creation_time": 1685925426.8273098,
+            "auxillary_file_paths": [
+                "results\\Test17\\BoomBehaviour\\BoomBehaviour-5481882.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
