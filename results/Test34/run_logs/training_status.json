@@ -1,0 +1,38 @@
+{
+    "BoomBehaviour": {
+        "checkpoints": [
+            {
+                "steps": 499965,
+                "file_path": "results\\Test34\\BoomBehaviour\\BoomBehaviour-499965.onnx",
+                "reward": 14.738749846816063,
+                "creation_time": 1686182062.947578,
+                "auxillary_file_paths": [
+                    "results\\Test34\\BoomBehaviour\\BoomBehaviour-499965.pt"
+                ]
+            },
+            {
+                "steps": 711211,
+                "file_path": "results\\Test34\\BoomBehaviour\\BoomBehaviour-711211.onnx",
+                "reward": 19.231764912605286,
+                "creation_time": 1686183896.9055624,
+                "auxillary_file_paths": [
+                    "results\\Test34\\BoomBehaviour\\BoomBehaviour-711211.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 711211,
+            "file_path": "results\\Test34\\BoomBehaviour.onnx",
+            "reward": 19.231764912605286,
+            "creation_time": 1686183896.9055624,
+            "auxillary_file_paths": [
+                "results\\Test34\\BoomBehaviour\\BoomBehaviour-711211.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
