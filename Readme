@@ -24,4 +24,5 @@ Board Dimensions: 10 x 10
                                 Log/Results/"name.txt"
   Name of results file will correspond to serialized field "Training Name" on GameManager object in 'Sample Scene' heirarchy.
   
+  To view graph results and corresponding configurations view link under results section in report.
   
